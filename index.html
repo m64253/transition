@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Transition</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			font-family: Arial;
+		}
+		
+		div.test-container {
+			position: relative;
+			height: 200px;
+			background: #eeeeee;
+		}
+		
+		span.test {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 50px;
+			height: 50px;
+			background: lime;
+			text-align: center;
+			line-height: 50px;
+		}
+	</style>
+</head>
+<body>
+
+<h1>Transition</h1>
+
+
+<h2>Test 1</h2>
+<div class="test-container">
+	<span class="test" id="test1p1"></span>
+</div>
+
+<h2>Test 2</h2>
+<div class="test-container">
+	<span class="test" id="test2p1"></span>
+	<span class="test" id="test2p2"></span>
+</div>
+
+<h2>Test 3</h2>
+<div class="test-container">
+	<span class="test" id="test3p1">
+		<span class="test" id="test3p2"></span>
+		<span class="test" id="test3p3"></span>
+	</span>
+</div>
+
+
+<script src="transition.js"></script>
+<script>
+setTimeout(function () {
+	
+	var test1p1 = document.getElementById('test1p1'),
+		test2p1 = document.getElementById('test2p1'),
+		test2p2 = document.getElementById('test2p2'),
+		test3p1 = document.getElementById('test3p1'),
+		test3p2 = document.getElementById('test3p2'),
+		test3p3 = document.getElementById('test3p3');
+	
+	transition(test1p1, {
+		left: '100%',
+		marginLeft: '-50px'
+	}, {
+		callback: function () {
+			test1p1.innerHTML = 'Y';
+		}
+	});
+
+
+
+	transition(test2p1, {
+		left: '100%',
+		marginLeft: '-50px'
+	}, {
+		callback: function () {
+			test2p1.innerHTML = 'Y';
+			transition(test2p2, {
+				top: '100%',
+				left: '100%',
+				marginTop: '-50px',
+				marginLeft: '-50px'
+			}, {
+				callback: function () {
+					test2p2.innerHTML = 'Y';
+				}
+			});
+		}
+	});
+
+	transition(test3p1, {
+		left: '100%',
+		marginLeft: '-50px'
+	}, {
+		duration: 3000,
+		callback: function () {
+			test3p1.appendChild(document.createTextNode('Y'));
+		}
+	});
+
+	transition(test3p2, {
+		left: '-50px'
+	}, {
+		duration: 2000,
+		callback: function () {
+			test3p2.appendChild(document.createTextNode('Y'));
+		}
+	});
+
+	transition(test3p3, {
+		top: '50px'
+	}, {
+		duration: 1000,
+		callback: function () {
+			test3p3.appendChild(document.createTextNode('Y'));
+		}
+	});
+	
+}, 100);
+</script>
+</body>
+</html>
