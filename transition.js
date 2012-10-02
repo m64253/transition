@@ -8,8 +8,8 @@
 		
 		
 		/**
-		 * Poor mans cross browser function
-		 * 
+		 * Poor mans cross browser transition function
+		 *
 		 * @static
 		 * @class transition
 		 * @param {HTMLElement} el
@@ -18,9 +18,9 @@
 		 * @return {HTMLElement}
 		 */
 		transition = root.transition = function (el, css, options) {
-			
+
 			options = options || {};
-			
+
 			var onTransitionEnd = function (e) {
 					if (e.target === el) {
 						el.removeEventListener(transition.eventName, onTransitionEnd, false);
@@ -28,7 +28,7 @@
 						el.style[transition.propertyName] = null;
 						el.style[transition.durationName] = null;
 						el.style[transition.delayName] = null;
-						el.style[transition.timingName] = null;
+						el.style[transition.easingName] = null;
 						
 						if (options.callback) {
 							options.callback();
@@ -36,17 +36,16 @@
 					}
 				},
 				property,
-				i,
-				len,
 				properties = [];
 			
-			for(property in css) {
-				if (css.hasOwnProperty(property)) {
-					properties.push(property);
-				}
-			}
 			
 			if (transition.supported) {
+				for(property in css) {
+					if (css.hasOwnProperty(property)) {
+						properties.push(property.replace(/([A-Z])/g, '-$1').toLowerCase());
+					}
+				}
+				
 				el.style[transition.propertyName] = properties.join(', ');
 				el.style[transition.durationName] = (options.duration || 1000) + 'ms';
 				el.style[transition.delayName] = (options.delay || 0) + 'ms';
@@ -58,9 +57,11 @@
 				setTimeout(options.callback, 0);
 			}
 			
-			for(i = 0, len = properties.length; i < len; i += 1) {
-				property = properties[i];
-				el.style[property] = css[property];
+			
+			for(property in css) {
+				if (css.hasOwnProperty(property)) {
+					el.style[property] = css[property];
+				}
 			}
 			
 			return el;

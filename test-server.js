@@ -22,4 +22,4 @@ var http = require('http'),
 			.on('error', error)
 			.on('directory', redirect)
 			.pipe(res);
-	}).listen(3000);
+	}).listen(4000);
