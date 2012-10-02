@@ -50,7 +50,7 @@
 				el.style[transition.propertyName] = properties.join(', ');
 				el.style[transition.durationName] = (options.duration || 1000) + 'ms';
 				el.style[transition.delayName] = (options.delay || 0) + 'ms';
-				el.style[transition.timingName] = options.timing || 'linear';
+				el.style[transition.easingName] = options.easing || 'linear';
 				
 				el.addEventListener(transition.eventName, onTransitionEnd, false);
 				
@@ -99,7 +99,7 @@
 					
 					transition.propertyName = styleProperty + 'Property';
 					transition.durationName = styleProperty + 'Duration';
-					transition.timingName = styleProperty + 'TimingFunction';
+					transition.easingName = styleProperty + 'TimingFunction';
 					transition.delayName = styleProperty + 'Delay';
 					
 					transition.eventName = events[vendor];
