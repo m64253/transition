@@ -21,20 +21,35 @@
 			
 			options = options || {};
 			
-			var onTransitionEnd = function (e) {
+			var done = function () {
+					
+					var property;
+					if (options.reset) {
+						for (property in css) {
+							if (css.hasOwnProperty(property)) {
+								el.style[property] = null;
+							}
+						}
+					}
+					
+					if (options.callback) {
+						options.callback();
+					}
+				},
+				onTransitionEnd = function (e) {
 					if (e.target === el) {
 						el.removeEventListener(transition.eventName, onTransitionEnd, false);
 						
-						el.style[transition.transform] = null;
+						if (!css.hasOwnProperty(transition.transformPropertyName)) {
+							el.style[transition.transformPropertyName] = null;
+						}
 						
 						el.style[transition.propertyName] = null;
 						el.style[transition.durationName] = null;
 						el.style[transition.delayName] = null;
 						el.style[transition.easingName] = null;
 						
-						if (options.callback) {
-							options.callback();
-						}
+						done();
 					}
 				},
 				property,
@@ -59,8 +74,8 @@
 				
 				el.addEventListener(transition.eventName, onTransitionEnd, false);
 				
-			} else if (options.callback) {
-				setTimeout(options.callback, 0);
+			} else {
+				setTimeout(done, 0);
 			}
 			
 			
@@ -81,7 +96,7 @@
 	 * @param {Array} value
 	 * @param {Object} [options]
 	 */
-	transition.transform = function (el, value, options) {
+	transition.translate3d = function (el, value, options) {
 		var css = {};
 		
 		if (transition.supported) {
