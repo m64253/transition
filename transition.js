@@ -63,10 +63,6 @@
 					}
 				}
 				
-				if (!css.hasOwnProperty(transition.transformPropertyName)) {
-					el.style[transition.transformPropertyName] = 'translate3d(0, 0, 0)';
-				}
-				
 				el.style[transition.propertyName] = properties.join(', ');
 				el.style[transition.durationName] = (options.duration || 1000) + 'ms';
 				el.style[transition.delayName] = (options.delay || 0) + 'ms';
@@ -125,14 +121,14 @@
 			var testEl = doc.createElement('div'),
 				stylePrefixes = {
 					'webkit'	: 'webkitTransition',
-					'moz'		: 'MozTransition',
+					'Moz'		: 'MozTransition',
 					'o'			: 'OTransition',
 					'ms'		: 'msTransition',
 					''			: 'transition'
 				},
 				events = {
 					'webkit'	: 'webkitTransitionEnd',
-					'moz'		: 'transitionend',
+					'Moz'		: 'transitionend',
 					'o'			: 'OTransitionEnd',
 					'ms'		: 'msTransitionEnd',
 					''			: 'transitionend'
@@ -153,7 +149,8 @@
 						transition.delayName = styleProperty + 'Delay';
 						
 						transition.eventName = events[vendor];
-
+						
+						
 						transition.transformPropertyName = vendor ? vendor + 'Transform' : 'transform';
 						
 						
