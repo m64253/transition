@@ -22,4 +22,4 @@ var http = require('http'),
 			.on('error', error)
 			.on('directory', redirect)
 			.pipe(res);
-	}).listen(4000);
+	}).listen(process.env.PORT || 3000, process.env.IP);

@@ -14,7 +14,14 @@ document.body.style.top = '0px';
 transition(document.body, { top: '5%' });
 
 transition(document.body, { top: '10%' }, {
-	duration: 5000, // in milliseconds
+	duration: 2500, // in milliseconds
+	callback: function () {
+		document.body.style.background = 'red';
+	}
+});
+
+transition.transform(document.body, [ '10px', '20px', '30px' ], {
+    duration: 5000, // in milliseconds
 	callback: function () {
 		document.body.style.background = 'red';
 	}
