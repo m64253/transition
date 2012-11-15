@@ -95,7 +95,7 @@
 	transition.translate3d = function (el, value, options) {
 		var css = {};
 		
-		if (transition.supported) {
+		if (transition.transformPropertyName) {
 			css[transition.transformPropertyName] = 'translate3d(' + value.join(', ') + ')';
 		} else {
 			css.left = value[0];
