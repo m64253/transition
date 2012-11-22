@@ -8,6 +8,16 @@
 		doc = win.document,
 		setTimeout = win.setTimeout,
 		
+		isInDoc = function (el) {
+			if (!el.parentNode) {
+				return false;
+			}
+			if (el.parentNode !== doc) {
+				return isInDoc(el.parentNode);
+			}
+			return true;
+		},
+		
 		
 		/**
 		 * Poor mans cross browser transition function
@@ -21,7 +31,8 @@
 			
 			options = options || {};
 			
-			var done = function () {
+			var isAttachedToDOM = isInDoc(el),
+				done = function () {
 					
 					var property;
 					if (options.reset) {
@@ -56,7 +67,7 @@
 				properties = [];
 			
 			
-			if (transition.supported) {
+			if (transition.supported && isAttachedToDOM) {
 				for (property in css) {
 					if (css.hasOwnProperty(property)) {
 						properties.push(property.replace(/([A-Z])/g, '-$1').toLowerCase());
@@ -69,7 +80,7 @@
 				el.style[transition.easingName] = options.easing || 'linear';
 				
 				el.addEventListener(transition.eventName, onTransitionEnd, false);
-				
+			
 			} else {
 				setTimeout(done, 0);
 			}
@@ -87,7 +98,7 @@
 	
 	/**
 	 * Do a transform translate3d transition
-	 * 
+	 *
 	 * @param {HTMLElement} el
 	 * @param {Array} value
 	 * @param {Object} [options]
@@ -150,9 +161,7 @@
 						
 						transition.eventName = events[vendor];
 						
-						
 						transition.transformPropertyName = vendor ? vendor + 'Transform' : 'transform';
-						
 						
 						break;
 					}
