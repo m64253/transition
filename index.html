@@ -73,16 +73,18 @@ setTimeout(function () {
 			test1p1.innerHTML = 'Y';
 			setTimeout(function () {
 				test1p1.innerHTML = '?';
-				transition.translate3d(test1p1, [ '-100px', '100px', 0 ], {
+				transition.translate3d(test1p1, [ '50%', '100px', 0 ], {
 					callback: function () {
 						test1p1.innerHTML = 'Y';
 					}
 				});
-			}, 0);
+			}, 1000);
 		}
 	});
-		
-	transition.translate3d(test1p2, [ '100px', '100px', 0 ], {
+
+	
+	test1p2.innerHTML = 'test1p2';
+	transition.translate3d(test1p2, [ '100px', '100px', '0px' ], {
 		callback: function () {
 			test1p2.innerHTML = 'Y';
 		}
@@ -95,6 +97,7 @@ setTimeout(function () {
 	}, {
 		callback: function () {
 			test2p1.innerHTML = 'Y';
+			test2p2.innerHTML = '?';
 			transition(test2p2, {
 				top: '100%',
 				left: '100%',

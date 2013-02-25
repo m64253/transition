@@ -1,9 +1,5 @@
 {
 	"name": "transition",
-	"version": "0.0.0",
-	"private": true,
-	
-	"dependencies": {
-		"send"			: ">0.0.4"
-	}
+	"version": "0.0.1",
+	"private": true
 }
