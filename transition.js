@@ -1,4 +1,3 @@
-/*jshint smarttabs: true white:true */
 /*globals module, setTimeout, clearTimeout */
 (function (root) {
 	"use strict";
@@ -35,7 +34,7 @@
 					done = function () {
 						var property;
 						
-						if (options.reset) {
+						if (options.reset || options.clear) {
 							for (property in css) {
 								if (css.hasOwnProperty(property)) {
 									el.style[property] = "";
@@ -43,7 +42,9 @@
 							}
 						}
 						
-						
+						if (options.after) {
+							options.after();
+						}
 						if (options.callback) {
 							options.callback();
 						}
@@ -96,13 +97,16 @@
 					setTimeout(done, 0);
 				}
 				
+				if (options.before) {
+					options.before();
+				}
 				
 				for (property in css) {
 					if (css.hasOwnProperty(property)) {
 						el.style[property] = css[property];
 					}
 				}
-			}, 0);
+			}, 16);
 			return el;
 		};
 	
