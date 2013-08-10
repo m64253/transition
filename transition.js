@@ -6,7 +6,7 @@
 	var win = root.window,
 		doc = win.document,
 		setTimeout = win.setTimeout,
-
+		
 		isInDoc = function (el) {
 			if (!el.parentNode) {
 				return false;
@@ -15,6 +15,10 @@
 				return isInDoc(el.parentNode);
 			}
 			return true;
+		},
+		
+		normalizeCSSPropertyName = function (property) {
+			return property.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^(ms|webkit|mos|o)\-/, '-$1-');
 		},
 		
 		
@@ -81,7 +85,7 @@
 							if (computedStyleValue) {
 								el.style[property] = computedStyleValue;
 							}
-							cssPropertyName = property.replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^(ms|webkit|mos|o)\-/, '-$1-');
+							cssPropertyName = normalizeCSSPropertyName(property);
 							properties.push(cssPropertyName);
 						}
 					}
